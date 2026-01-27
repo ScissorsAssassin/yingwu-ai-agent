@@ -1,0 +1,8 @@
+package com.example.aiagent.constant;
+
+public interface FileConstant {
+    /**
+     * 文件保存 目录
+     */
+    String FILE_SAVE_DIR = System.getProperty("user.dir") + "/tmp";
+}

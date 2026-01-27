@@ -1,0 +1,34 @@
+package com.example.aiagent.tools;
+
+import org.springframework.ai.tool.ToolCallback;
+import org.springframework.ai.tool.ToolCallbacks;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class ToolRegistration {
+
+    @Value("${search.api-key}")
+    private String apiKey;
+
+    @Bean
+    public ToolCallback[] allTools() {
+        FileOperationTool fileOperationTool = new FileOperationTool();
+        PDFGenerateTool pdfGenerateTool = new PDFGenerateTool();
+        ResourceDownloadTool resourceDownloadTool = new ResourceDownloadTool();
+        TerminalOperationTool terminalOperationTool = new TerminalOperationTool();
+        WebOperationTool webOperationTool = new WebOperationTool(apiKey);
+        WebScrapingTool webScrapingTool = new WebScrapingTool();
+        TerminateTool terminateTool = new TerminateTool();
+        return ToolCallbacks.from(
+                fileOperationTool,
+                pdfGenerateTool,
+                resourceDownloadTool,
+                terminalOperationTool,
+                webOperationTool,
+                webScrapingTool,
+                terminateTool
+        );
+    }
+}
